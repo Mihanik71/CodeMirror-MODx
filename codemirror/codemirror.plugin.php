@@ -98,8 +98,7 @@ if (('none' == $rte) && $mode) {
 					var ch;
 					if (stream.match("[[")) {
 						while ((ch = stream.next()) != null)
-							if (ch == "]" && stream.next() == "]") break;
-						stream.eat("]");
+							if (ch == "?" || (ch == "]"&& stream.next() == "]")) break;
 						return "modxSnippet";
 					}
 					if (stream.match("{{")) {
@@ -122,8 +121,7 @@ if (('none' == $rte) && $mode) {
 					}
 					if (stream.match("[!")) {
 						while ((ch = stream.next()) != null)
-							if (ch == "!" && stream.next() == "]") break;
-						stream.eat("]");
+							if (ch == "?" || (ch == "!"&& stream.next() == "]")) break;
 						return "modxSnippetNoCache";
 					}
 					if (stream.match("[(")) {
@@ -144,7 +142,19 @@ if (('none' == $rte) && $mode) {
 						stream.eat("]");
 						return "modxConfig";
 					}
-					while (stream.next() != null && !stream.match("[[", false) && !stream.match("{{", false) && !stream.match("[*", false) && !stream.match("[+", false) && !stream.match("[!", false) && !stream.match("[(", false) && !stream.match("[~", false) && !stream.match("[^", false)) {}
+					if (stream.match("&")) {
+						while ((ch = stream.next()) != null)
+							if (ch == "=") break;
+						stream.eat("=");
+						return "attribute";
+					}
+					if (stream.match("!]")) {
+						return "modxSnippet";
+					}
+					if (stream.match("]]")) {
+						return "modxSnippetNoCache";
+					}
+					while (stream.next() != null && !stream.match("[[", false) && !stream.match("&", false) && !stream.match("{{", false) && !stream.match("[*", false) && !stream.match("[+", false) && !stream.match("[!", false) && !stream.match("[(", false) && !stream.match("[~", false) && !stream.match("[^", false) && !stream.match("!]", false) && !stream.match("]]", false)) {}
 					return null;
 				}
 			};
