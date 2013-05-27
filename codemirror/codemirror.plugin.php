@@ -2,6 +2,7 @@
 global $content;
 $textarea_name = 'post';
 $mode = 'htmlmixed';
+$lang = 'htmlmixed';
 /*
  * Default Plugin configuration
  */
@@ -40,15 +41,16 @@ switch($modx->Event->name) {
 		switch($contentType){
 			case "text/css":
 				$mode = "text/css";
+				$lang = "css";
 			break;
 			case "text/javascript":
 				$mode = "text/javascript";
+				$lang = "javascript";
 			break;
 			case "application/json":
 				$mode = "application/json";
+				$lang = "javascript";
 			break;
-			default:
-				$mode = "htmlmixed";
 		}
         break;
 
@@ -57,6 +59,7 @@ switch($modx->Event->name) {
     case 'OnModFormRender'    :
         $mode  = 'application/x-httpd-php-open';
         $rte   = ($prte ? $prte : 'none');
+		$lang = "php";
         break;
 
     case 'OnManagerPageRender':
@@ -72,23 +75,10 @@ if (('none' == $rte) && $mode) {
     $output = '';
     $output .= <<< HEREDOC
 	<link rel="stylesheet" href="{$_CM_URL}cm/lib/codemirror.css">
-	<link rel="stylesheet" href="{$_CM_URL}cm/addon.css">
 	<link rel="stylesheet" href="{$_CM_URL}cm/theme/{$theme}.css">
-	<script src="{$_CM_URL}cm/lib/codemirror.js"></script>
-	<script src="{$_CM_URL}cm/addon.js"></script>
-	<script src="{$_CM_URL}cm/addon/selection/active-line.js"></script>
-	<script src="{$_CM_URL}cm/addon/search/searchcursor.js"></script>
-	<script src="{$_CM_URL}cm/addon/search/match-highlighter.js"></script>
-	<script src="{$_CM_URL}cm/addon/fold/foldcode.js"></script>
-	<script src="{$_CM_URL}cm/addon/fold/brace-fold.js"></script>
-	<script src="{$_CM_URL}cm/addon/fold/xml-fold.js"></script>
-	<script src="{$_CM_URL}cm/addon/mode/overlay.js"></script>
-	<script src="{$_CM_URL}cm/mode/xml/xml.js"></script>
-	<script src="{$_CM_URL}cm/mode/javascript/javascript.js"></script>
-	<script src="{$_CM_URL}cm/mode/css/css.js"></script>
-	<script src="{$_CM_URL}cm/mode/clike/clike.js"></script>
-	<script src="{$_CM_URL}cm/mode/htmlmixed/htmlmixed.js"></script>
-	<script src="{$_CM_URL}cm/mode/php/php.js"></script>
+	<script src="{$_CM_URL}cm/lib/codemirror-compressed.js"></script>
+	<script src="{$_CM_URL}cm/addon-compressed.js"></script>
+	<script src="{$_CM_URL}cm/mode/{$lang}-compressed.js"></script>
 
 	<script type="text/javascript">
 		// Add mode MODx for syntax highlighting. Dfsed on $mode

@@ -58,7 +58,7 @@
 	position: fixed;
 	top: 0; left: 0;
 	width: 100%;
-	z-index: 9999;
+	z-index: 999;
 }
 .action-opacity{
 	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=30);
@@ -72,11 +72,7 @@
 	-khtml-opacity: 1;
 	opacity: 1;
 }
-.cm-modxChunk{color: #000000; /*font-weight: 100;*/text-shadow: rgb(187, 187, 187) 1px 1px 1px;}
-.cm-modxSnippet{color: #000000; /*font-weight: 100;*/text-shadow: rgb(187, 187, 187) 1px 1px 1px;}
-.cm-modxTv{color: #000000; /*font-weight: 100;*/text-shadow: rgb(187, 187, 187) 1px 1px 1px;}
-.cm-modxPlaceholder{color: #000000; /*font-weight: 100;*/text-shadow: rgb(187, 187, 187) 1px 1px 1px;}
-.cm-modxSnippetNoCache{color: #000000; /*font-weight: 100;*/text-shadow: rgb(187, 187, 187) 1px 1px 1px;}
-.cm-modxVariable{color: #000000; /*font-weight: 100;*/text-shadow: rgb(187, 187, 187) 1px 1px 1px;}
-.cm-modxUrl{color: #000000; /*font-weight: 100;*/text-shadow: rgb(187, 187, 187) 1px 1px 1px;}
-.cm-modxConfig{color: #000000; /*font-weight: 100;*/text-shadow: rgb(187, 187, 187) 1px 1px 1px;}
+.cm-modxChunk, .cm-modxSnippet, .cm-modxTv,  .cm-modxPlaceholder,.cm-modxSnippetNoCache, .cm-modxVariable, .cm-modxUrl, .cm-modxConfig {
+    color: #000;
+    text-shadow:1px 1px 10px rgba(106, 177, 0, 0.68);
+}
