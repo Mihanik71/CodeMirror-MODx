@@ -6,13 +6,13 @@ $lang = 'htmlmixed';
 /*
  * Default Plugin configuration
  */
-$theme                  = (isset($theme)                    ? $theme                    : 'default');
-$indentUnit             = (isset($indentUnit)               ? $indentUnit               : 4);
-$tabSize                = (isset($tabSize)                  ? $tabSize                  : 4);
-$lineWrapping           = (isset($lineWrapping)             ? $lineWrapping             : false);
-$matchBrackets        	= (isset($matchBrackets)            ? $matchBrackets           	: false);
-$activeLine           	= (isset($activeLine)               ? $activeLine			    : false);
-$selectionMatches       = (isset($selectionMatches)         ? $selectionMatches         : false);
+$theme                  = (($theme)                    ? true					: 'default');
+$indentUnit             = (($indentUnit)               ? true               	: 4);
+$tabSize                = (($tabSize)                  ? true                  	: 4);
+$lineWrapping           = (($lineWrapping)             ? true           	 	: false);
+$matchBrackets        	= (($matchBrackets)            ? true					: false);
+$activeLine           	= (($activeLine)               ? true			   	 	: false);
+$selectionMatches       = (($selectionMatches)         ? true        		 	: false);
 /*
  * This plugin is only valid in "text" mode. So check for the current Editor
  */
@@ -64,8 +64,7 @@ switch($modx->Event->name) {
 
     case 'OnManagerPageRender':
         if ((31 == $action) && (('view' == $_REQUEST['mode']) || ('edit' == $_REQUEST['mode']))) {
-            $textarea_name = 'content';
-            $rte   = 'none';
+            print_r($content);
         }
         break;
 
