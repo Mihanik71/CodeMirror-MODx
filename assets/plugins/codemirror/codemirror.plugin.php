@@ -6,12 +6,12 @@ $lang = 'htmlmixed';
 /*
  * Default Plugin configuration
  */
-$theme                  = (($theme)                    ? true					: 'default');
-$indentUnit             = (($indentUnit)               ? true               	: 4);
-$tabSize                = (($tabSize)                  ? true                  	: 4);
+$theme                  = (($theme)                    ? $theme				: 'default');
+$indentUnit             = (($indentUnit)               ? $indentUnit               	: 4);
+$tabSize                = (($tabSize)                  ? $tabSize                  	: 4);
 $lineWrapping           = (($lineWrapping)             ? true           	 	: false);
-$matchBrackets        	= (($matchBrackets)            ? true					: false);
-$activeLine           	= (($activeLine)               ? true			   	 	: false);
+$matchBrackets        	= (($matchBrackets)            ? true				: false);
+$activeLine           	= (($activeLine)               ? true			   	: false);
 $selectionMatches       = (($selectionMatches)         ? true        		 	: false);
 /*
  * This plugin is only valid in "text" mode. So check for the current Editor
