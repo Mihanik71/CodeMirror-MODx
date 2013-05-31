@@ -12,7 +12,6 @@ $tabSize                = (($tabSize)                  ? $tabSize               
 $lineWrapping           = (($lineWrapping)             ? true           	 	: false);
 $matchBrackets        	= (($matchBrackets)            ? true				: false);
 $activeLine           	= (($activeLine)               ? true			   	: false);
-$selectionMatches       = (($selectionMatches)         ? true        		 	: false);
 /*
  * This plugin is only valid in "text" mode. So check for the current Editor
  */
@@ -162,7 +161,6 @@ if (('none' == $rte) && $mode) {
 			lineWrapping: {$lineWrapping},
 			gutters: ["CodeMirror-linenumbers", "breakpoints"],
 			styleActiveLine: {$activeLine},
-			highlightSelectionMatches: {$selectionMatches},
 			indentWithTabs: true,
 			extraKeys:{
 				"Ctrl-Space": function(cm){
