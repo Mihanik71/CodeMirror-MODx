@@ -1,4 +1,20 @@
 <?php
+/**
+ * @name        CodeMirror
+ * @description JavaScript library that can be used to create a relatively pleasant editor interface
+ *
+ * @released    Jun 5, 2013
+ * @CodeMirror  3.13
+ *
+ * @required    MODx 0.9.6.3+
+ *              CodeMirror  3.13 : pl
+ *
+ * @confirmed   MODx Evolution 1.10.0
+ *
+ * @author      Mihanik71 
+ *
+ * @see         https://github.com/Mihanik71/CodeMirror-MODx
+ */
 global $content;
 $textarea_name = 'post';
 $mode = 'htmlmixed';
@@ -6,13 +22,13 @@ $lang = 'htmlmixed';
 /*
  * Default Plugin configuration
  */
-$theme                  = (($theme)                    ? true					: 'default');
-$indentUnit             = (($indentUnit)               ? true               	: 4);
-$tabSize                = (($tabSize)                  ? true                  	: 4);
-$lineWrapping           = (($lineWrapping)             ? true           	 	: false);
-$matchBrackets        	= (($matchBrackets)            ? true					: false);
-$activeLine           	= (($activeLine)               ? true			   	 	: false);
-$selectionMatches       = (($selectionMatches)         ? true        		 	: false);
+$theme                  = (isset($theme)                    ? $theme                    : 'default');
+$indentUnit             = (isset($indentUnit)               ? $indentUnit               : 4);
+$tabSize                = (isset($tabSize)                  ? $tabSize                  : 4);
+$lineWrapping           = (isset($lineWrapping)             ? $lineWrapping             : false);
+$matchBrackets          = (isset($matchBrackets)            ? $matchBrackets            : false);
+$activeLine           	= (isset($activeLine)             	? $activeLine            	: false);
+$emmet					= (($emmet == 'true')? '<script src="'.$_CM_URL.'cm/emmet.js"></script>' : "");
 /*
  * This plugin is only valid in "text" mode. So check for the current Editor
  */
@@ -64,7 +80,8 @@ switch($modx->Event->name) {
 
     case 'OnManagerPageRender':
         if ((31 == $action) && (('view' == $_REQUEST['mode']) || ('edit' == $_REQUEST['mode']))) {
-            print_r($content);
+            $textarea_name = 'content';
+            $rte   = 'none';
         }
         break;
 
@@ -79,10 +96,11 @@ if (('none' == $rte) && $mode) {
 	<script src="{$_CM_URL}cm/lib/codemirror-compressed.js"></script>
 	<script src="{$_CM_URL}cm/addon-compressed.js"></script>
 	<script src="{$_CM_URL}cm/mode/{$lang}-compressed.js"></script>
-
+	{$emmet}
+	
 	<script type="text/javascript">
 		// Add mode MODx for syntax highlighting. Dfsed on $mode
-		CodeMirror.defineMode("MODx", function(config, parserConfig) {
+		CodeMirror.defineMode("MODx-{$mode}", function(config, parserConfig) {
 			var mustacheOverlay = {
 				token: function(stream, state) {
 					var ch;
@@ -152,7 +170,7 @@ if (('none' == $rte) && $mode) {
 		});
 		//Basic settings
 		var config = {
-			mode: 'MODx',
+			mode: 'MODx-{$mode}',
 			theme: '{$theme}',
 			indentUnit: {$indentUnit},
 			tabSize: {$tabSize},
@@ -162,7 +180,6 @@ if (('none' == $rte) && $mode) {
 			lineWrapping: {$lineWrapping},
 			gutters: ["CodeMirror-linenumbers", "breakpoints"],
 			styleActiveLine: {$activeLine},
-			highlightSelectionMatches: {$selectionMatches},
 			indentWithTabs: true,
 			extraKeys:{
 				"Ctrl-Space": function(cm){
@@ -178,7 +195,12 @@ if (('none' == $rte) && $mode) {
 		};
 		var foldFunc_html = CodeMirror.newFoldFunction(CodeMirror.tagRangeFinder);
 		var myTextArea = document.getElementsByName('{$textarea_name}')[0];
-		var myCodeMirror = CodeMirror.fromTextArea(myTextArea, config);
+		var myCodeMirror = (CodeMirror.fromTextArea(myTextArea, config));
+		$$('.tab-row .tab').addEvents({
+			click: function() {
+				myCodeMirror.refresh();
+			}
+		});
 		myCodeMirror.on("gutterClick", function(cm, n) {
 			var info = cm.lineInfo(n);
 			cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
