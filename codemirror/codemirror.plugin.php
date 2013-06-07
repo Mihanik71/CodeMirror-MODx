@@ -27,8 +27,8 @@ $indentUnit             = (isset($indentUnit)               ? $indentUnit       
 $tabSize                = (isset($tabSize)                  ? $tabSize                  : 4);
 $lineWrapping           = (isset($lineWrapping)             ? $lineWrapping             : false);
 $matchBrackets          = (isset($matchBrackets)            ? $matchBrackets            : false);
-$activeLine           	= (isset($activeLine)             	? $activeLine            	: false);
-$emmet					= (($emmet == 'true')? '<script src="'.$_CM_URL.'cm/emmet.js"></script>' : "");
+$activeLine           	= (isset($activeLine)               ? $activeLine            	: false);
+$emmet			= (($emmet == 'true')? '<script src="'.$_CM_URL.'cm/emmet.js"></script>' : "");
 /*
  * This plugin is only valid in "text" mode. So check for the current Editor
  */
