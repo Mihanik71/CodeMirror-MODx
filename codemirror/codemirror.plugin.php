@@ -19,6 +19,7 @@ global $content;
 $textarea_name = 'post';
 $mode = 'htmlmixed';
 $lang = 'htmlmixed';
+$object_id = md5($evt->name.'-'.$content[id]);
 /*
  * Default Plugin configuration
  */
@@ -27,8 +28,8 @@ $indentUnit             = (isset($indentUnit)               ? $indentUnit       
 $tabSize                = (isset($tabSize)                  ? $tabSize                  : 4);
 $lineWrapping           = (isset($lineWrapping)             ? $lineWrapping             : false);
 $matchBrackets          = (isset($matchBrackets)            ? $matchBrackets            : false);
-$activeLine           	= (isset($activeLine)               ? $activeLine            	: false);
-$emmet			= (($emmet == 'true')? '<script src="'.$_CM_URL.'cm/emmet.js"></script>' : "");
+$activeLine           	= (isset($activeLine)             	? $activeLine            	: false);
+$emmet					= (($emmet == 'true')? '<script src="'.$_CM_URL.'cm/emmet-compressed.js"></script>' : "");
 /*
  * This plugin is only valid in "text" mode. So check for the current Editor
  */
@@ -176,7 +177,6 @@ if (('none' == $rte) && $mode) {
 			tabSize: {$tabSize},
 			lineNumbers: true,
 			matchBrackets: {$matchBrackets},
-			onKeyEvent: myEventHandler,
 			lineWrapping: {$lineWrapping},
 			gutters: ["CodeMirror-linenumbers", "breakpoints"],
 			styleActiveLine: {$activeLine},
@@ -187,9 +187,28 @@ if (('none' == $rte) && $mode) {
 				},
 				"F11": function(cm) {
 					setFullScreen(cm, !isFullScreen(cm));
+					localStorage["cm_fullScreen_{$object_id}"] = isFullScreen(cm);
 				},
 				"Esc": function(cm) {
-					if (isFullScreen(cm)) setFullScreen(cm, false);
+					if (isFullScreen(cm)){
+						setFullScreen(cm, false);
+						localStorage["cm_fullScreen_{$object_id}"] = "false";
+					}
+				},
+				"Ctrl-S": function(cm) {
+					document.getElementById('Button1').getElementsByTagName('a')[0].onclick();
+				},
+				"Ctrl-E": function(cm) {
+					document.getElementById('Button1').getElementsByTagName('select')[0].options[1].selected = true;
+					document.getElementById('Button1').getElementsByTagName('a')[0].onclick();
+				},
+				"Ctrl-B": function(cm) {
+					document.getElementById('Button1').getElementsByTagName('select')[0].options[0].selected = true;
+					document.getElementById('Button1').getElementsByTagName('a')[0].onclick();
+				},
+				"Ctrl-Q": function(cm) {
+					document.getElementById('Button1').getElementsByTagName('select')[0].options[2].selected = true;
+					document.getElementById('Button1').getElementsByTagName('a')[0].onclick();
 				}
 			}
 		};
@@ -201,6 +220,7 @@ if (('none' == $rte) && $mode) {
 				myCodeMirror.refresh();
 			}
 		});
+		if ("true" == localStorage["cm_fullScreen_{$object_id}"]) setFullScreen(myCodeMirror, !isFullScreen(myCodeMirror));
 		myCodeMirror.on("gutterClick", function(cm, n) {
 			var info = cm.lineInfo(n);
 			cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
