@@ -1,6 +1,6 @@
 /**
  * @name: CodeMirror
- * @description: <b>3.13 b</b> JavaScript library that can be used to create a relatively pleasant editor interface
+ * @description: <b>1.1 b</b> JavaScript library that can be used to create a relatively pleasant editor interface
  *
  * @events:
  * - OnDocFormRender
@@ -10,7 +10,7 @@
  * - OnSnipFormRender
  * - OnTempFormRender
  * @category    plugin
- * @version     3.13
+ * @version     1.1
  * @license     http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @package     modx
  * @author      hansek from www.modxcms.cz <http://www.modxcms.cz>, update Mihanik71
