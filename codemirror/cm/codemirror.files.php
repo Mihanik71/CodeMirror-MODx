@@ -16,7 +16,7 @@
  * @see         https://github.com/Mihanik71/CodeMirror-MODx
  */
 
-$textarea_name   		= 'content';
+$textarea_name 			= 'content';
 $mode 					= 'htmlmixed';
 $lang 					= 'htmlmixed';
 $theme                  = 'default';
@@ -27,7 +27,7 @@ $matchBrackets          = true;
 $activeLine           	= true;
 $emmet					= '<script src="'.$_CM_URL.'cm/emmet-compressed.js"></script>';
 
-$array_path 			= explode(".", $_REQUEST['path']);
+$array_path 	= explode(".", $_REQUEST['path']);
 $length 				= count($array_path);
 $language 				= strtolower($array_path[($length-1)]);
 
@@ -72,7 +72,6 @@ $language 				= strtolower($array_path[($length-1)]);
 			tabSize: {$tabSize},
 			lineNumbers: true,
 			matchBrackets: {$matchBrackets},
-			onKeyEvent: myEventHandler,
 			lineWrapping: {$lineWrapping},
 			gutters: ["CodeMirror-linenumbers", "breakpoints"],
 			styleActiveLine: {$activeLine},
